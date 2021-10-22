@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string>
+#include "GameEngine.h"
 #define WIDTH 800
 #define HEIGHT 800
 #define MAX_USER_INPUT 9
@@ -78,6 +79,11 @@ int main(int argc, char *argv[]) {
 			return -1;
 		}
 window game(WIDTH,HEIGHT,lines,columns);
+window *screen = &game;
+GameEngine engine(columns,lines,cells,100,screen);
+engine.beginGame();
+/*
+
 srand(time(NULL));
 std::vector<int> table;
 for(unsigned int i = 0; i < cells; i++)
@@ -87,7 +93,8 @@ for(unsigned int i = 0; i < cells; i++)
 	table.push_back(p);
 }
 
-game.drawLife(table);
+*/
+//game.drawLife(table);
 
 
 	return 0;

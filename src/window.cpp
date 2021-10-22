@@ -98,7 +98,7 @@ for (int i = 0; i < this->cell_r; i++)
 
 		if (it.operator *() == 0)
 		{
-			SDL_SetRenderDrawColor( this->gRenderer, 0xFF, 0x00, 0x00, 0xFF );
+			SDL_SetRenderDrawColor( this->gRenderer, 0xFF, 0xFF, 0x00, 0xFF );
 		}
 		else
 		{
@@ -112,5 +112,5 @@ for (int i = 0; i < this->cell_r; i++)
 	current_y += this->cell_h;
 }
 SDL_RenderPresent( this->gRenderer);
-SDL_Delay(4000);
+SDL_Delay(500);
 }
