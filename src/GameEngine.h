@@ -17,6 +17,7 @@ public:
 	GameEngine(int columns, int lines, int cells, int iteration, window *screen);
 	virtual ~GameEngine();
 	void beginGame();
+	void debug();
 private:
 	int columns {0};
 	int lines {0};
@@ -25,6 +26,7 @@ private:
 	std::vector<std::vector<int>> current;
 	std::vector<std::vector<int>> future;
 	void initCurrent();
+
 	void copyVector();
 	void calculateVector();
 	int getCellValue(int i, int j);

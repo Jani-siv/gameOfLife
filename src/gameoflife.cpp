@@ -81,6 +81,7 @@ int main(int argc, char *argv[]) {
 window game(WIDTH,HEIGHT,lines,columns);
 window *screen = &game;
 GameEngine engine(columns,lines,cells,1000,screen);
+engine.debug();
 engine.beginGame();
 /*
 

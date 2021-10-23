@@ -209,3 +209,39 @@ while (this->iteration > 0)
 	this->iteration--;
 }
 }
+
+void GameEngine::debug()
+{
+	int i = this->current.size();
+	int j = this->current[0].size();
+	this->current.erase(this->current.begin(),this->current.end());
+	std::vector<int> first, second, third, rest;
+	first.push_back(0);
+	first.push_back(1);
+	first.push_back(0);
+	second.push_back(0);
+	second.push_back(0);
+	second.push_back(1);
+	third.push_back(1);
+	third.push_back(1);
+	third.push_back(1);
+	rest.push_back(0);
+	rest.push_back(0);
+	rest.push_back(0);
+	for (int k = 3; k < j; k++)
+	{
+		first.push_back(0);
+		second.push_back(0);
+		third.push_back(0);
+		rest.push_back(0);
+	}
+	this->current.push_back(first);
+	this->current.push_back(second);
+	this->current.push_back(third);
+
+	for (int k = 3; k < i; k++)
+	{
+		this->current.push_back(rest);
+	}
+
+}
