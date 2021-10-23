@@ -7,14 +7,14 @@
 
 #include "window.h"
 
-window::window(unsigned int width, unsigned int height, int cells_r, int cells_c) {
+window::window(unsigned int u_width, unsigned int u_heigth, int cells_r, int cells_c) {
 	// TODO Auto-generated constructor stu
 	//set screen dividing fit correctly
-	this->width = width;
-	this->width -= width%cells_c;
+	this->width = u_width;
+	this->width -= this->width%cells_c;
 	std::cout<<"cells_c & cells_r: "<<cells_c<<":"<<cells_r<<std::endl;
-	this->heigth = heigth;
-	this->heigth -= heigth%cells_r;
+	this->heigth = u_heigth;
+	this->heigth -= this->heigth%cells_r;
 	std::cout<<"screen dimenssions:"<<this->width<<"x"<<this->heigth<<std::endl;
 	this->cell_h = this->heigth / cells_r;
 	std::cout<<"cell height"<<this->cell_h<<std::endl;

@@ -9,6 +9,7 @@
 // Kernel ver. : 5.14.11-200.fc34.x86_64
 // cflags for compiler in Linux run: pkg-config sdl2 --cflags
 // libs for compiler in Linux run: pkg-config sdl2 --libs
+// for test screen with glider use debug() before  beginGame.
 //============================================================================
 
 #include <iostream>
@@ -83,21 +84,6 @@ window *screen = &game;
 GameEngine engine(columns,lines,cells,1000,screen);
 engine.debug();
 engine.beginGame();
-/*
-
-srand(time(NULL));
-std::vector<int> table;
-for(unsigned int i = 0; i < cells; i++)
-{
-	int ran = rand() % 9000 +1;
-	int p = ran % 2;
-	table.push_back(p);
-}
-
-*/
-//game.drawLife(table);
-
-
 	return 0;
 	}
 }

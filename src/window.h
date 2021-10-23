@@ -14,7 +14,7 @@
 
 class window {
 public:
-	window(unsigned int width, unsigned int height, int cells_r, int cells_c);
+	window(unsigned int u_width, unsigned int u_heigth, int cells_r, int cells_c);
 	void drawLife(std::vector<int> cell);
 	virtual ~window();
 private:
