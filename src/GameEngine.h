@@ -29,7 +29,7 @@ private:
 	void calculateVector();
 	int getCellValue(int i, int j);
 	int calculateSurroundCells(int i_begin, int i_end, int j_begin, int j_end, int current_cell_position_i, int current_cell_position_j);
-	int calculateState(int sum);
+	int calculateState(int sum, int currentState);
 	void drawScreen();
 
 	window * screen;

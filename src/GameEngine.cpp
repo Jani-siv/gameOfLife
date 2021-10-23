@@ -46,8 +46,9 @@ void GameEngine::calculateVector()
 {
 //todo smaller than 9 cell
 	//empty current
+	//std::cout<<"current size"<<this->current.size()<<std::endl;
 	this->current.erase(this->current.begin(), this->current.end());
-
+	//std::cout<<"current size"<<this->current.size()<<std::endl;
 		for (unsigned i = 0; i < this->future.size(); i++)
 		{
 			std::vector<int> table;
@@ -64,45 +65,68 @@ void GameEngine::calculateVector()
 						sum = this->calculateSurroundCells(i,i+1,j,j+1,i,j);
 
 						// 5 dead cell calculate other
-
+						//std::cout<<"first line first column: "<<sum<<std::endl;
 					}
 					//last column
-					else if (j == future[i].size())
+					else if (j == this->future[i].size()-1)
 					{
 						sum = this->calculateSurroundCells(i,i+1,j-1,j,i,j);
-					;
+					//std::cout<<"first line last column: "<<sum<<std::endl;
 						// 5 dead cell calculate other
 					}
 					else
 					{
 
 						sum = this->calculateSurroundCells(i,i+1,j-1,j+1,i,j);
+						//std::cout<<"first line middle of calculation:"<<sum<<std::endl;
 					}
 				}
 				//last line
-				else if ( i == future.size()-1)
+				else if ( i == this->future.size()-1)
 				{
 
 					//first column
 					if (j == 0)
 					{
 						sum = this->calculateSurroundCells(i-1,i,j,j+1,i,j);
+						//std::cout<<"last line first column:"<<sum<<std::endl;
 						//5 dead cell calculate other
 					}
 					//last column
-					else if (j == future[i].size())
+					else if (j == this->future[i].size()-1)
 					{
 						sum = this->calculateSurroundCells(i-1,i,j-1,j,i,j);
 						//5 dead cell calculate other
+						//std::cout<<"last line last column:"<<sum<<std::endl;
+					}
+					else
+					{
+						sum = this->calculateSurroundCells(i-1,i,j-1,j+1,i,j);
+						//std::cout<<"last line middle column:"<<sum<<std::endl;
 					}
 				}
+				//middle first column
+				else if (j == 0)
+				{
+					sum = this->calculateSurroundCells(i-1,i+1,j,j+1,i,j);
+					//std::cout<<"Middle first column: "<<sum<<std::endl;
+				}
+				//middle last column
+				else if (j == this->current[i].size()-1)
+				{
+					sum = this->calculateSurroundCells(i-1,i+1,j-1,j,i,j);
+					//std::cout<<"Middle last column: "<<sum<<std::endl;
+				}
+				//middle
 				else
 				{
 				sum = this->calculateSurroundCells(i-1,i+1,j-1,j+1,i,j);
+				//std::cout<<"Middle middle column: "<<sum<<std::endl;
 					//calculate 9 cells
 				}
 				//modify current cell state
-				int state = this->calculateState(sum);
+				int currentState = this->future[i][j];
+				int state = this->calculateState(sum,currentState);
 				table.push_back(state);
 			}
 			this->current.push_back(table);
@@ -117,34 +141,57 @@ int GameEngine::getCellValue(int i, int j)
 
 int GameEngine::calculateSurroundCells(int i_begin, int i_end, int j_begin, int j_end, int current_cell_position_i, int current_cell_position_j)
 {
+	//std::cout<<"current position"<<current_cell_position_i<<","<<current_cell_position_j<<std::endl;
 	int sum = 0;
 	for (int i = i_begin; i < i_end+1; i++)
 	{
 		for (int j = j_begin; j < j_end+1; j++)
 		{
-			if (i != current_cell_position_i && j != current_cell_position_j)
-			{
+
 				sum += this->future[i][j];
-			}
+				//std::cout<<"pos: "<<i<<","<<j<<"val: "<<future[i][j];
 		}
+		//std::cout<<std::endl;
 	}
+
+	sum -= this->future[current_cell_position_i][current_cell_position_j];
+	//std::cout<<"sum of neighbours: "<<sum<<std::endl;
 	return sum;
 }
 
-int GameEngine::calculateState(int sum)
+int GameEngine::calculateState(int sum, int currentState)
 {
-	if (sum == 2 || sum == 3) {return 1;}
-	else { return 0; }
+	if(sum > 3) {
+		//std::cout<<"cell is now dead"<<std::endl;
+		return 0;
+	}
+	else if (sum == 2) {
+		if (currentState == 1)
+		{
+		//std::cout<<"still alive"<<std::endl;
+		return 1;
+		}
+		else {
+			//std::cout<<"staying dead"<<std::endl;
+			return 0;
+		}
+	}
+	else if (sum == 3) {
+		//std::cout<<"dead change to alive"<<std::endl;
+		return 1;
+	}
+
+	else return 0;
 }
 
 void GameEngine::drawScreen()
 {
 	std::vector<int> screenData;
-	for (unsigned int i = 0; i < this->current.size(); i++)
+	for (unsigned int i = 0; i < this->future.size(); i++)
 	{
-		for (unsigned int j = 0; j < this->current[i].size(); j++)
+		for (unsigned int j = 0; j < this->future[i].size(); j++)
 		{
-			screenData.push_back(this->current[i][j]);
+			screenData.push_back(this->future[i][j]);
 		}
 	}
 	this->screen->drawLife(screenData);

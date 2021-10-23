@@ -12,11 +12,14 @@ window::window(unsigned int width, unsigned int height, int cells_r, int cells_c
 	//set screen dividing fit correctly
 	this->width = width;
 	this->width -= width%cells_c;
-
+	std::cout<<"cells_c & cells_r: "<<cells_c<<":"<<cells_r<<std::endl;
 	this->heigth = heigth;
 	this->heigth -= heigth%cells_r;
-	this->cell_h = height / cells_r;
-	this->cell_w = width / cells_c;
+	std::cout<<"screen dimenssions:"<<this->width<<"x"<<this->heigth<<std::endl;
+	this->cell_h = this->heigth / cells_r;
+	std::cout<<"cell height"<<this->cell_h<<std::endl;
+	this->cell_w = this->width / cells_c;
+	std::cout<<"cell width"<<this->cell_w<<std::endl;
 	this->cell_r = cells_r;
 	this->cell_c = cells_c;
 	if (this->makeWindow() < 0)
@@ -40,7 +43,7 @@ int window::makeWindow()
     else
       {
           //Create window
-          this->gameWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->width, this->heigth, SDL_WINDOW_SHOWN );
+          this->gameWindow = SDL_CreateWindow( "Game Of Life", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->width, this->heigth, SDL_WINDOW_SHOWN );
           if( gameWindow == NULL )
           {
               printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -112,5 +115,5 @@ for (int i = 0; i < this->cell_r; i++)
 	current_y += this->cell_h;
 }
 SDL_RenderPresent( this->gRenderer);
-SDL_Delay(500);
+SDL_Delay(50);
 }
