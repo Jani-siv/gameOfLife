@@ -2,7 +2,7 @@
  * window.cpp
  *
  *  Created on: Oct 21, 2021
- *      Author: Gyy
+ *      Author: Jani
  */
 
 #include "window.h"

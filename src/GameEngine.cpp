@@ -2,7 +2,7 @@
  * GameEngine.cpp
  *
  *  Created on: Oct 22, 2021
- *      Author: Gyy
+ *      Author: Jani
  */
 
 #include "GameEngine.h"

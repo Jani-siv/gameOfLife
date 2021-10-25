@@ -2,7 +2,7 @@
  * window.h
  *
  *  Created on: Oct 21, 2021
- *      Author: Gyy
+ *      Author: Jani
  */
 
 #ifndef WINDOW_H_
