@@ -201,12 +201,12 @@ void GameEngine::beginGame()
 {
 this->copyVector();
 this->drawScreen();
-while (this->iteration > 0)
+while (this->screen->gameEnd == false)
 {
 	this->calculateVector();
 	this->copyVector();
 	this->drawScreen();
-	this->iteration--;
+//	this->iteration--;
 }
 }
 

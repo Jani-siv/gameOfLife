@@ -33,10 +33,15 @@ void menu()
 	std::cout<<"Maximum amount of cells is: "<<MAX_CELLS<<std::endl;
 	std::cout<<"Minimum amount of cells is: 2"<<std::endl;
 	std::cout<<"window size: "<<WIDTH<<"X"<<HEIGHT<<std::endl;
+	std::cout<<"USER INPUTS IN GAME:"<<std::endl;
+	std::cout<<"a automate / one step"<<std::endl;
+	std::cout<<"s step"<<std::endl;
+	std::cout<<"q quit qame"<<std::endl;
 
 }
 
 int main(int argc, char *argv[]) {
+	menu();
 	if (argc > 1)
 	{
 		int argvLen = strlen(argv[1]);
@@ -82,8 +87,13 @@ int main(int argc, char *argv[]) {
 window game(WIDTH,HEIGHT,lines,columns);
 window *screen = &game;
 GameEngine engine(columns,lines,cells,1000,screen);
-engine.debug();
+//engine.debug();
 engine.beginGame();
 	return 0;
+	}
+	else
+	{
+		menu();
+		return -1;
 	}
 }

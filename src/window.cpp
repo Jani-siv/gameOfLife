@@ -12,14 +12,14 @@ window::window(unsigned int u_width, unsigned int u_heigth, int cells_r, int cel
 	//set screen dividing fit correctly
 	this->width = u_width;
 	this->width -= this->width%cells_c;
-	std::cout<<"cells_c & cells_r: "<<cells_c<<":"<<cells_r<<std::endl;
+	//std::cout<<"cells_c & cells_r: "<<cells_c<<":"<<cells_r<<std::endl;
 	this->heigth = u_heigth;
 	this->heigth -= this->heigth%cells_r;
-	std::cout<<"screen dimenssions:"<<this->width<<"x"<<this->heigth<<std::endl;
+	//std::cout<<"screen dimenssions:"<<this->width<<"x"<<this->heigth<<std::endl;
 	this->cell_h = this->heigth / cells_r;
-	std::cout<<"cell height"<<this->cell_h<<std::endl;
+	//std::cout<<"cell height"<<this->cell_h<<std::endl;
 	this->cell_w = this->width / cells_c;
-	std::cout<<"cell width"<<this->cell_w<<std::endl;
+	//std::cout<<"cell width"<<this->cell_w<<std::endl;
 	this->cell_r = cells_r;
 	this->cell_c = cells_c;
 	if (this->makeWindow() < 0)
@@ -82,6 +82,13 @@ void window::drawWindow()
 
 void window::drawLife(std::vector<int> cell)
 {
+	if (this->displayMode == false)
+	{
+		while(this->checkEvents() != 2)
+		{
+			;
+		}
+	}
 	auto it = cell.begin();
 	int current_x=0;
 	int current_y=0;
@@ -116,4 +123,41 @@ for (int i = 0; i < this->cell_r; i++)
 }
 SDL_RenderPresent( this->gRenderer);
 SDL_Delay(50);
+this->checkEvents();
+}
+
+void window::setDisplayMode(bool mode)
+{
+this->displayMode = mode;
+}
+
+int window::checkEvents()
+{
+	if(SDL_PollEvent(&this->event) != 0)
+	{
+		if (this->event.type == SDL_QUIT)
+		{
+			this->gameEnd = true;
+			return 1;
+		}
+		else if (this->event.type == SDL_KEYDOWN)
+		{
+			if(this->event.key.keysym.sym==SDLK_a)
+			{
+				this->displayMode = !this->displayMode;
+				return 2;
+			}
+			if (this->event.key.keysym.sym==SDLK_s)
+			{
+				return 2;
+			}
+			if (this->event.key.keysym.sym==SDLK_q)
+			{
+				this->gameEnd = true;
+				std::cout<<"quitting game"<<std::endl;
+				return 2;
+			}
+		}
+	}
+	return 0;
 }
